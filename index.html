@@ -11,28 +11,6 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="DESKTOP Files">
 
-<!-- PWA Manifest (inline) -->
-<link rel="manifest" href="data:application/manifest+json,{
-  &quot;name&quot;:&quot;DESKTOP-ODF87F7 Files&quot;,
-  &quot;short_name&quot;:&quot;DESKTOP Files&quot;,
-  &quot;start_url&quot;:&quot;.&quot;,
-  &quot;display&quot;:&quot;standalone&quot;,
-  &quot;background_color&quot;:&quot;#111827&quot;,
-  &quot;theme_color&quot;:&quot;#111827&quot;,
-  &quot;icons&quot;:[
-    {
-      &quot;src&quot;:&quot;https://upload.wikimedia.org/wikipedia/commons/6/6b/Windows_Settings_app_icon.png&quot;,
-      &quot;sizes&quot;:&quot;192x192&quot;,
-      &quot;type&quot;:&quot;image/png&quot;
-    },
-    {
-      &quot;src&quot;:&quot;https://upload.wikimedia.org/wikipedia/commons/6/6b/Windows_Settings_app_icon.png&quot;,
-      &quot;sizes&quot;:&quot;512x512&quot;,
-      &quot;type&quot;:&quot;image/png&quot;
-    }
-  ]
-}">
-
 <style>
 *{
   margin:0;
@@ -157,7 +135,7 @@ footer{
 
   <div class="hero">
     <h1>Welcome Back 👋</h1>
-    <p>Browse files directly from your GitHub repository. Updates automatically every 30 seconds.</p>
+    <p>Browse files directly from your GitHub repository. Updates every 30 seconds.</p>
   </div>
 
   <div id="content" class="files-grid">Loading files...</div>
@@ -201,7 +179,11 @@ async function loadRepo() {
 function renderFiles(items) {
   const content = document.getElementById("content");
 
-  const visible = items.filter(i => i.name.toLowerCase() !== "index.html");
+  const hidden = ["index.html", "manifest.json", "sw.js"];
+
+  const visible = items.filter(item =>
+    !hidden.includes(item.name.toLowerCase())
+  );
 
   if (!visible.length) {
     content.innerHTML = "<div class='viewer'>No files found.</div>";
@@ -266,35 +248,6 @@ document.getElementById("search").addEventListener("input", e => {
 
 loadRepo();
 setInterval(loadRepo, 30000);
-</script>
-
-<!-- PWA SERVICE WORKER (INLINE BLOB) -->
-<script>
-if ("serviceWorker" in navigator) {
-
-  const swCode = `
-    const CACHE = "desktop-files-v1";
-
-    self.addEventListener("install", e => {
-      self.skipWaiting();
-    });
-
-    self.addEventListener("activate", e => {
-      e.waitUntil(clients.claim());
-    });
-
-    self.addEventListener("fetch", e => {
-      e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
-    });
-  `;
-
-  const blob = new Blob([swCode], { type: "application/javascript" });
-  const swURL = URL.createObjectURL(blob);
-
-  navigator.serviceWorker.register(swURL)
-    .then(() => console.log("PWA Enabled"))
-    .catch(err => console.error(err));
-}
 </script>
 
 </body>
