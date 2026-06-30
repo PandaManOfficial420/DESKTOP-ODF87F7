@@ -8,8 +8,6 @@
 
 <meta name="theme-color" content="#111827">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="DESKTOP Files">
 
 <style>
 *{
@@ -98,29 +96,6 @@ header{
   border-radius:14px;
   cursor:pointer;
 }
-
-.viewer{
-  background:rgba(255,255,255,.12);
-  backdrop-filter:blur(20px);
-  border:1px solid rgba(255,255,255,.2);
-  border-radius:25px;
-  padding:25px;
-}
-
-.viewer pre{
-  margin-top:20px;
-  background:rgba(0,0,0,.3);
-  padding:20px;
-  border-radius:20px;
-  overflow:auto;
-  white-space:pre-wrap;
-}
-
-footer{
-  text-align:center;
-  padding:40px;
-  opacity:.7;
-}
 </style>
 </head>
 
@@ -135,14 +110,12 @@ footer{
 
   <div class="hero">
     <h1>Welcome Back 👋</h1>
-    <p>Browse files directly from your GitHub repository. Updates every 30 seconds.</p>
+    <p>Download files directly from your GitHub repository.</p>
   </div>
 
   <div id="content" class="files-grid">Loading files...</div>
 
 </div>
-
-<footer>© 2026 DESKTOP-ODF87F7 Files</footer>
 
 <script>
 const OWNER = "PandaManOfficial420";
@@ -186,7 +159,7 @@ function renderFiles(items) {
   );
 
   if (!visible.length) {
-    content.innerHTML = "<div class='viewer'>No files found.</div>";
+    content.innerHTML = "<div>No files found.</div>";
     return;
   }
 
@@ -194,6 +167,10 @@ function renderFiles(items) {
   content.innerHTML = "";
 
   visible.forEach(item => {
+
+    const rawURL =
+      `https://raw.githubusercontent.com/${OWNER}/${REPO}/main/${item.path}`;
+
     const card = document.createElement("div");
     card.className = "file";
 
@@ -201,44 +178,14 @@ function renderFiles(items) {
       <div class="file-icon">${getIcon(item.name, item.type)}</div>
       <div class="file-name">${item.name}</div>
       <div class="file-type">${item.type === "dir" ? "Folder" : "File"}</div>
-      <button>Open</button>
-    `;
 
-    card.querySelector("button").onclick = () => {
-      if (item.type === "file") openFile(item.path);
-    };
+      <a href="${rawURL}" download>
+        <button>Download ⬇</button>
+      </a>
+    `;
 
     content.appendChild(card);
   });
-}
-
-async function openFile(path) {
-  const raw = `https://raw.githubusercontent.com/${OWNER}/${REPO}/main/${path}`;
-  const content = document.getElementById("content");
-
-  try {
-    const res = await fetch(raw);
-    const text = await res.text();
-
-    const escaped = text
-      .replace(/&/g,"&amp;")
-      .replace(/</g,"&lt;")
-      .replace(/>/g,"&gt;");
-
-    content.className = "";
-
-    content.innerHTML = `
-      <div class="viewer">
-        <h2>📄 ${path}</h2>
-        <br>
-        <button onclick="renderFiles(currentItems)">⬅ Back</button>
-        <pre>${escaped}</pre>
-      </div>
-    `;
-
-  } catch {
-    content.innerHTML = "<div class='viewer'>⚠️ Unable to open file.</div>";
-  }
 }
 
 document.getElementById("search").addEventListener("input", e => {
