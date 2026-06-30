@@ -7,7 +7,6 @@
 <title>DESKTOP-ODF87F7 Files</title>
 
 <meta name="theme-color" content="#111827">
-<meta name="apple-mobile-web-app-capable" content="yes">
 
 <style>
 *{
@@ -79,22 +78,43 @@ header{
   border:1px solid rgba(255,255,255,.2);
   border-radius:25px;
   padding:25px;
-  transition:.3s;
 }
-
-.file:hover{ transform:translateY(-8px); }
 
 .file-icon{ font-size:45px; margin-bottom:15px; }
 .file-name{ font-size:18px; margin-bottom:10px; word-break:break-word; }
 .file-type{ opacity:.7; margin-bottom:20px; }
 
-.file button{
+.buttons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+button{
   background:rgba(255,255,255,.15);
   border:1px solid rgba(255,255,255,.2);
   color:white;
-  padding:12px 16px;
-  border-radius:14px;
+  padding:10px 14px;
+  border-radius:12px;
   cursor:pointer;
+  flex:1;
+}
+
+.viewer{
+  background:rgba(255,255,255,.12);
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:25px;
+  padding:25px;
+}
+
+.viewer pre{
+  margin-top:20px;
+  background:rgba(0,0,0,.3);
+  padding:20px;
+  border-radius:20px;
+  overflow:auto;
+  white-space:pre-wrap;
 }
 </style>
 </head>
@@ -109,8 +129,8 @@ header{
 <div class="container">
 
   <div class="hero">
-    <h1>Welcome Back 👋</h1>
-    <p>Download files directly from your GitHub repository.</p>
+    <h1>Welcome 👋</h1>
+    <p>View or download files from GitHub instantly.</p>
   </div>
 
   <div id="content" class="files-grid">Loading files...</div>
@@ -145,7 +165,7 @@ async function loadRepo() {
     renderFiles(currentItems);
 
   } catch {
-    content.innerHTML = "<div class='viewer'>⚠️ Failed to load files.</div>";
+    content.innerHTML = "<div>⚠️ Failed to load files.</div>";
   }
 }
 
@@ -154,16 +174,10 @@ function renderFiles(items) {
 
   const hidden = ["index.html", "manifest.json", "sw.js"];
 
-  const visible = items.filter(item =>
-    !hidden.includes(item.name.toLowerCase())
+  const visible = items.filter(i =>
+    !hidden.includes(i.name.toLowerCase())
   );
 
-  if (!visible.length) {
-    content.innerHTML = "<div>No files found.</div>";
-    return;
-  }
-
-  content.className = "files-grid";
   content.innerHTML = "";
 
   visible.forEach(item => {
@@ -179,13 +193,44 @@ function renderFiles(items) {
       <div class="file-name">${item.name}</div>
       <div class="file-type">${item.type === "dir" ? "Folder" : "File"}</div>
 
-      <a href="${rawURL}" download>
-        <button>Download ⬇</button>
-      </a>
+      <div class="buttons">
+        <button onclick="viewFile('${rawURL}', '${item.path}')">View 👁️</button>
+        <a href="${rawURL}" download style="flex:1">
+          <button>Download ⬇</button>
+        </a>
+      </div>
     `;
 
     content.appendChild(card);
   });
+}
+
+async function viewFile(url, path) {
+  const content = document.getElementById("content");
+
+  try {
+    const res = await fetch(url);
+    const text = await res.text();
+
+    const safe = text
+      .replace(/&/g,"&amp;")
+      .replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;");
+
+    content.className = "";
+
+    content.innerHTML = `
+      <div class="viewer">
+        <h2>📄 ${path}</h2>
+        <br>
+        <button onclick="renderFiles(currentItems)">⬅ Back</button>
+        <pre>${safe}</pre>
+      </div>
+    `;
+
+  } catch {
+    content.innerHTML = "<div>⚠️ Unable to view file.</div>";
+  }
 }
 
 document.getElementById("search").addEventListener("input", e => {
