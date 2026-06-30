@@ -20,20 +20,20 @@ body{
     url("https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1920&auto=format&fit=crop");
   background-size:cover;
   background-position:center;
-  color:#fff;
+  color:white;
 }
 
 header{
+  padding:25px;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  gap:20px;
-  padding:25px;
   flex-wrap:wrap;
+  gap:20px;
 }
 
 .logo{
-  font-size:28px;
+  font-size:30px;
   font-weight:700;
 }
 
@@ -42,11 +42,11 @@ header{
   max-width:100%;
   padding:14px;
   border:none;
+  outline:none;
   border-radius:18px;
   background:rgba(255,255,255,.12);
   backdrop-filter:blur(20px);
-  color:#fff;
-  outline:none;
+  color:white;
 }
 
 .container{
@@ -59,7 +59,7 @@ header{
   border:1px solid rgba(255,255,255,.2);
   border-radius:30px;
   padding:40px;
-  margin-bottom:25px;
+  margin-bottom:30px;
 }
 
 .hero h1{
@@ -71,37 +71,17 @@ header{
   opacity:.8;
 }
 
-.toolbar{
-  display:flex;
-  gap:12px;
-  margin-bottom:20px;
-}
-
-button{
-  background:rgba(255,255,255,.12);
-  border:1px solid rgba(255,255,255,.2);
-  color:#fff;
-  padding:12px 18px;
-  border-radius:16px;
-  cursor:pointer;
-  backdrop-filter:blur(20px);
-}
-
-.path{
-  margin-bottom:20px;
-  opacity:.8;
-}
-
 .files-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  grid-template-columns:
+    repeat(auto-fit,minmax(240px,1fr));
   gap:20px;
 }
 
 .file{
   background:rgba(255,255,255,.12);
-  border:1px solid rgba(255,255,255,.2);
   backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.2);
   border-radius:25px;
   padding:25px;
   transition:.3s;
@@ -127,10 +107,19 @@ button{
   margin-bottom:20px;
 }
 
+.file button{
+  background:rgba(255,255,255,.15);
+  border:1px solid rgba(255,255,255,.2);
+  color:white;
+  padding:12px 16px;
+  border-radius:14px;
+  cursor:pointer;
+}
+
 .viewer{
   background:rgba(255,255,255,.12);
-  border:1px solid rgba(255,255,255,.2);
   backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.2);
   border-radius:25px;
   padding:25px;
 }
@@ -138,19 +127,10 @@ button{
 .viewer pre{
   margin-top:20px;
   background:rgba(0,0,0,.3);
-  border-radius:20px;
   padding:20px;
-  overflow:auto;
-  max-height:70vh;
-  white-space:pre-wrap;
-}
-
-.viewer img,
-.viewer video,
-.viewer audio{
-  margin-top:20px;
-  max-width:100%;
   border-radius:20px;
+  overflow:auto;
+  white-space:pre-wrap;
 }
 
 footer{
@@ -168,7 +148,7 @@ footer{
   <input
     id="search"
     class="search"
-    placeholder="Search current folder..."
+    placeholder="Search files..."
   >
 </header>
 
@@ -177,22 +157,13 @@ footer{
   <div class="hero">
     <h1>Welcome Back 👋</h1>
     <p>
-      Browse your GitHub repository directly inside this website.
-      New commits automatically appear every 30 seconds.
+      Browse files directly from your GitHub repository.
+      Updates automatically every 30 seconds.
     </p>
   </div>
 
-  <div class="toolbar">
-    <button onclick="goBack()">⬅ Back</button>
-    <button onclick="loadFolder(currentPath)">🔄 Refresh</button>
-  </div>
-
-  <div class="path" id="path">
-    📁 /
-  </div>
-
   <div id="content" class="files-grid">
-    Loading...
+    Loading files...
   </div>
 
 </div>
@@ -205,12 +176,10 @@ footer{
 const OWNER = "PandaManOfficial420";
 const REPO = "DESKTOP-ODF87F7";
 
-let currentPath = "";
 let currentItems = [];
-let historyStack = [];
 
-function icon(name, type){
-  if(type === "dir") return "📁";
+function getIcon(name, type) {
+  if (type === "dir") return "📁";
 
   const ext = name.split(".").pop().toLowerCase();
 
@@ -220,31 +189,23 @@ function icon(name, type){
     jpeg:"🖼️",
     gif:"🖼️",
     webp:"🖼️",
-    mp4:"🎬",
-    webm:"🎬",
-    mp3:"🎵",
-    wav:"🎵",
+    zip:"📦",
     html:"🌐",
     css:"🎨",
     js:"⚡",
-    json:"🧩",
-    zip:"📦"
+    json:"🧩"
   };
 
   return icons[ext] || "📄";
 }
 
-async function loadFolder(path = "") {
-  currentPath = path;
-
-  document.getElementById("path").textContent =
-    "📁 /" + (path || "");
-
-  const content = document.getElementById("content");
+async function loadRepo() {
+  const content =
+    document.getElementById("content");
 
   try {
     const response = await fetch(
-      `https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`
+      `https://api.github.com/repos/${OWNER}/${REPO}/contents`
     );
 
     const items = await response.json();
@@ -261,11 +222,16 @@ async function loadFolder(path = "") {
   }
 }
 
-function renderFiles(items){
+function renderFiles(items) {
   const content =
     document.getElementById("content");
 
-  if(!items.length){
+  const visibleItems =
+    items.filter(item =>
+      item.name.toLowerCase() !== "index.html"
+    );
+
+  if (!visibleItems.length) {
     content.innerHTML =
       "<div class='viewer'>No files found.</div>";
     return;
@@ -274,7 +240,7 @@ function renderFiles(items){
   content.className = "files-grid";
   content.innerHTML = "";
 
-  items.forEach(item => {
+  visibleItems.forEach(item => {
 
     const card =
       document.createElement("div");
@@ -283,7 +249,7 @@ function renderFiles(items){
 
     card.innerHTML = `
       <div class="file-icon">
-        ${icon(item.name,item.type)}
+        ${getIcon(item.name, item.type)}
       </div>
 
       <div class="file-name">
@@ -296,19 +262,13 @@ function renderFiles(items){
           : "File"}
       </div>
 
-      <button>
-        Open →
-      </button>
+      <button>Open</button>
     `;
 
     card.querySelector("button")
       .onclick = () => {
 
-      if(item.type === "dir"){
-        historyStack.push(currentPath);
-        loadFolder(item.path);
-      }
-      else{
+      if (item.type === "file") {
         openFile(item.path);
       }
     };
@@ -317,10 +277,7 @@ function renderFiles(items){
   });
 }
 
-async function openFile(path){
-
-  const ext =
-    path.split(".").pop().toLowerCase();
+async function openFile(path) {
 
   const raw =
     `https://raw.githubusercontent.com/${OWNER}/${REPO}/main/${path}`;
@@ -328,48 +285,8 @@ async function openFile(path){
   const content =
     document.getElementById("content");
 
-  content.className = "";
+  try {
 
-  if(
-    ["png","jpg","jpeg","gif","webp"]
-    .includes(ext)
-  ){
-    content.innerHTML = `
-      <div class="viewer">
-        <h2>🖼️ ${path}</h2>
-        <img src="${raw}">
-      </div>
-    `;
-    return;
-  }
-
-  if(
-    ["mp4","webm"]
-    .includes(ext)
-  ){
-    content.innerHTML = `
-      <div class="viewer">
-        <h2>🎬 ${path}</h2>
-        <video controls src="${raw}"></video>
-      </div>
-    `;
-    return;
-  }
-
-  if(
-    ["mp3","wav"]
-    .includes(ext)
-  ){
-    content.innerHTML = `
-      <div class="viewer">
-        <h2>🎵 ${path}</h2>
-        <audio controls src="${raw}"></audio>
-      </div>
-    `;
-    return;
-  }
-
-  try{
     const response =
       await fetch(raw);
 
@@ -378,18 +295,25 @@ async function openFile(path){
 
     const escaped =
       text
-      .replace(/&/g,"&amp;")
-      .replace(/</g,"&lt;")
-      .replace(/>/g,"&gt;");
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;");
+
+    content.className = "";
 
     content.innerHTML = `
       <div class="viewer">
         <h2>📄 ${path}</h2>
+        <br>
+        <button onclick="renderFiles(currentItems)">
+          ⬅ Back
+        </button>
         <pre>${escaped}</pre>
       </div>
     `;
-  }
-  catch{
+
+  } catch {
+
     content.innerHTML = `
       <div class="viewer">
         ⚠️ Unable to open file.
@@ -398,37 +322,25 @@ async function openFile(path){
   }
 }
 
-function goBack(){
-
-  if(historyStack.length){
-    loadFolder(
-      historyStack.pop()
-    );
-  }
-}
-
 document
-.getElementById("search")
-.addEventListener("input", e => {
+  .getElementById("search")
+  .addEventListener("input", e => {
 
-  const value =
-    e.target.value.toLowerCase();
+    const value =
+      e.target.value.toLowerCase();
 
-  const filtered =
-    currentItems.filter(item =>
-      item.name
-      .toLowerCase()
-      .includes(value)
-    );
+    const filtered =
+      currentItems.filter(item =>
+        item.name
+          .toLowerCase()
+          .includes(value)
+      );
 
-  renderFiles(filtered);
-});
+    renderFiles(filtered);
+  });
 
-loadFolder();
-setInterval(
-  () => loadFolder(currentPath),
-  30000
-);
+loadRepo();
+setInterval(loadRepo, 30000);
 </script>
 
 </body>
