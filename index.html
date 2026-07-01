@@ -31,6 +31,58 @@ body{
   color:white;
 }
 
+
+/* SITE NAV */
+.site-nav{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  padding:14px 25px;
+  background:rgba(17,24,39,.78);
+  border-bottom:1px solid rgba(255,255,255,.16);
+  backdrop-filter:blur(18px);
+  box-shadow:0 10px 30px rgba(0,0,0,.18);
+}
+.site-brand{
+  color:white;
+  text-decoration:none;
+  font-size:18px;
+  font-weight:800;
+  letter-spacing:.2px;
+  white-space:nowrap;
+}
+.site-links{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+.site-links a{
+  color:white;
+  text-decoration:none;
+  padding:8px 12px;
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:999px;
+  background:rgba(255,255,255,.08);
+  transition:all .25s ease;
+}
+.site-links a:hover,
+.site-links a.active{
+  background:rgba(255,255,255,.22);
+  border-color:rgba(255,255,255,.35);
+  transform:translateY(-1px);
+}
+@media (max-width:640px){
+  .site-nav{align-items:flex-start;flex-direction:column;padding:12px 16px}
+  .site-links{justify-content:flex-start}
+  .site-links a{padding:7px 10px;font-size:14px}
+}
+
 /* MAIN */
 .container{ padding:25px; }
 
@@ -128,6 +180,15 @@ button:disabled{
 </head>
 
 <body>
+
+<nav class="site-nav" aria-label="Main navigation">
+  <a class="site-brand" href="index.html">💻 DESKTOP-ODF87F7</a>
+  <div class="site-links">
+    <a class="active" href="index.html" aria-current="page">📁 Files</a>
+    <a href="music.html">🎵 Music</a>
+    <a href="png.html">🖼️ PNG Pager</a>
+  </div>
+</nav>
 
 <div class="container">
   <div id="content" class="files-grid">Loading files...</div>
