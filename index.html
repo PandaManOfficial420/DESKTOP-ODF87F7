@@ -190,6 +190,7 @@ button:disabled{
     <a class="active" href="index.html" aria-current="page">📁 Files</a>
     <a href="music.html">🎵 Music</a>
     <a href="png.html">🖼️ Image Pager</a>
+    <a href="contact.html">✉️ Contact</a>
   </div>
 </nav>
 
@@ -278,7 +279,7 @@ async function loadRepo() {
 function renderFiles(items) {
   const content = document.getElementById("content");
 
-  const hidden = ["index.html", "manifest.json", "sw.js", "music.html", "png.html", "favicon.svg"];
+  const hidden = ["index.html", "manifest.json", "sw.js", "music.html", "png.html", "contact.html", "favicon.svg"];
 
   const visible = items.filter(i =>
     !hidden.includes(i.name.toLowerCase())
