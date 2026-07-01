@@ -1,4 +1,4 @@
-const CACHE = "desktop-files-v2";
+const CACHE = "desktop-files-v3";
 
 const ASSETS = [
   "./",
