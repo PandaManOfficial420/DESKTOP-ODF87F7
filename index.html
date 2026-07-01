@@ -10,6 +10,9 @@
 <meta property="og:description" content="Browse and download files directly from GitHub repository.">
 <meta name="theme-color" content="#111827">
 
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23fff'>💻</text></svg>">
+
 <style>
 *{
   margin:0;
@@ -39,6 +42,33 @@ header{
 .logo{
   font-size:28px;
   font-weight:700;
+}
+
+.header-links{
+  display:flex;
+  gap:15px;
+  align-items:center;
+}
+
+.discord-link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:40px;
+  height:40px;
+  background:rgba(88,101,242,.2);
+  border:1px solid rgba(88,101,242,.4);
+  border-radius:50%;
+  color:white;
+  text-decoration:none;
+  font-size:20px;
+  transition:all 0.3s ease;
+}
+
+.discord-link:hover{
+  background:rgba(88,101,242,.35);
+  border-color:rgba(88,101,242,.6);
+  transform:scale(1.1);
 }
 
 /* MAIN */
@@ -141,6 +171,9 @@ button:disabled{
 
 <header>
   <div class="logo">💻 DESKTOP-ODF87F7 Files</div>
+  <div class="header-links">
+    <a href="https://discord.com" class="discord-link" title="Join Discord" target="_blank" rel="noopener noreferrer">🎮</a>
+  </div>
 </header>
 
 <div class="container">
