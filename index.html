@@ -214,7 +214,7 @@ async function loadRepo() {
 function renderFiles(items) {
   const content = document.getElementById("content");
 
-  const hidden = ["index.html", "manifest.json", "sw.js"];
+  const hidden = ["index.html", "manifest.json", "sw.js", "music.html", "png.html"];
 
   const visible = items.filter(i =>
     !hidden.includes(i.name.toLowerCase())
