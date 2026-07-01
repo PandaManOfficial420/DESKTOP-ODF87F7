@@ -27,29 +27,73 @@ body{
   overflow:hidden;
 }
 
-/* Shared header/nav styles */
+/* HEADER */
 header{
   padding:18px 25px;
   display:flex;
   justify-content:space-between;
   align-items:center;
   gap:12px;
-  background:rgba(0,0,0,.12);
 }
 
-.logo{ font-size:20px; font-weight:700 }
-.header-links{ display:flex; gap:12px; align-items:center }
-.nav-bar{ display:flex; gap:10px; align-items:center }
-.nav-link{ display:inline-flex; align-items:center; gap:8px; padding:8px 12px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06); border-radius:10px; color:white; text-decoration:none; font-size:14px; font-weight:600 }
-.nav-link:hover{ background:rgba(255,255,255,.08); transform:translateY(-2px) }
-.discord-link{ display:inline-flex; align-items:center; gap:8px; padding:8px 12px; background:rgba(88,101,242,.15); border:1px solid rgba(88,101,242,.25); border-radius:12px; color:white; text-decoration:none }
-.discord-link:hover{ background:rgba(88,101,242,.25) }
-
-/* HEADER (page-specific) */
-.header-title{
+.logo{
   font-size:28px;
   font-weight:700;
-  margin:0;
+}
+
+.header-links{
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+
+/* NAV BAR */
+.nav-bar{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.nav-link{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 12px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:12px;
+  color:white;
+  text-decoration:none;
+  font-size:14px;
+  font-weight:600;
+  transition:all 0.18s ease;
+}
+
+.nav-link:hover{
+  background:rgba(255,255,255,.12);
+  transform:translateY(-2px);
+}
+
+.discord-link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:10px 16px;
+  background:rgba(88,101,242,.2);
+  border:1px solid rgba(88,101,242,.4);
+  border-radius:20px;
+  color:white;
+  text-decoration:none;
+  font-size:14px;
+  font-weight:600;
+  transition:all 0.3s ease;
+}
+
+.discord-link:hover{
+  background:rgba(88,101,242,.35);
+  border-color:rgba(88,101,242,.6);
+  transform:scale(1.05);
 }
 
 /* CONTAINER */
@@ -121,10 +165,10 @@ header{
 .volume-slider::-moz-range-thumb{ width:14px; height:14px; border-radius:50%; background:#f27121; cursor:pointer; border:none }
 
 /* PLAYLIST */
-.playlist-section{ flex:1; background:rgba(255,255,255,.05); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,.1); border-radius:20px; padding:20px; display:flex; flex-direction:column; overflow:hidden }
+.playlist-section{ flex:1; background:rgba(255,255,255,.05); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,.1); border-radius:20px; padding:20px; display:flex; flex-direction:column }
 .playlist-title{ font-size:20px; font-weight:700; margin-bottom:15px; color:#f27121 }
 .playlist{ flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:10px }
-.playlist-item{ background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); padding:12px 15px; border-radius:10px; cursor:pointer; transition:all 0.3s ease; font-size:14px; display:flex; align-items:center; gap:10px; word-break:break-word }
+.playlist-item{ background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); padding:12px 15px; border-radius:10px; cursor:pointer; transition:all 0.3s ease; font-size:14px; display:flex; align-items:center; gap:10px }
 .playlist-item:hover{ background:rgba(255,255,255,.1); border-color:rgba(255,255,255,.2); transform:translateX(5px) }
 .playlist-item.active{ background:linear-gradient(135deg, #e94560 0%, #f27121 100%); border-color:#f27121; font-weight:700 }
 .playlist-icon{ font-size:16px; flex-shrink:0 }
@@ -150,8 +194,8 @@ header{
   <div class="logo">💻 DESKTOP-ODF87F7 Files</div>
   <div class="header-links">
     <nav class="nav-bar" aria-label="Main navigation">
-      <a class="nav-link" href="index.html" title="Home">🏠 Home</a>
       <a class="nav-link" href="music.html" title="Open music page">🎵 Music</a>
+      <a class="nav-link" href="index.html" title="Home">🏠 Home</a>
       <a class="nav-link" href="png.html" title="PNG Gallery">🖼️ PNGs</a>
     </nav>
     <a href="https://discord.gg/McrZ7aZZaY" class="discord-link" title="Join Discord" target="_blank" rel="noopener noreferrer">🎮 Join Discord</a>
