@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>🖼️ PNG Pager - DESKTOP-ODF87F7</title>
+<title>🖼️ Image Pager - DESKTOP-ODF87F7</title>
 
-<meta property="og:title" content="PNG Pager">
-<meta property="og:description" content="Browse PNG images in a pager/slideshow similar to the music player.">
+<meta property="og:title" content="Image Pager">
+<meta property="og:description" content="Browse PNG, GIF, JPG, WebP, SVG, and other image files in a pager/slideshow similar to the music player.">
 <!-- Site icons -->
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="shortcut icon" href="favicon.svg">
@@ -51,19 +51,19 @@ header{padding:20px;text-align:center;border-bottom:2px solid rgba(255,255,255,.
   <div class="site-links">
     <a href="index.html">📁 Files</a>
     <a href="music.html">🎵 Music</a>
-    <a class="active" href="png.html" aria-current="page">🖼️ PNG Pager</a>
+    <a class="active" href="png.html" aria-current="page">🖼️ Image Pager</a>
   </div>
 </nav>
 
 <header>
   <button class="back-btn-header" onclick="goBack()">⬅ Back</button>
-  <div class="header-title">🖼️ PNG Pager</div>
+  <div class="header-title">🖼️ Image Pager</div>
 </header>
 
 <div class="container">
   <div class="viewer-section">
     <div class="image-frame" id="imageFrame">
-      <img id="mainImage" alt="PNG preview" src=""/>
+      <img id="mainImage" alt="Image preview" src=""/>
     </div>
 
     <div class="controls">
@@ -82,9 +82,9 @@ header{padding:20px;text-align:center;border-bottom:2px solid rgba(255,255,255,.
   </div>
 
   <div class="gallery-section">
-    <div class="gallery-title">📚 PNG Gallery</div>
+    <div class="gallery-title">📚 Image Gallery</div>
     <div id="gallery" class="gallery"></div>
-    <div id="emptyMsg" class="empty" style="display:none">No PNG files found in the repository.</div>
+    <div id="emptyMsg" class="empty" style="display:none">No supported image files found in the repository.</div>
   </div>
 </div>
 
@@ -97,9 +97,13 @@ let currentIndex = 0;
 let slideshowId = null;
 let slideshowInterval = 5000;
 
-function isPng(name){
+const IMAGE_EXTENSIONS = new Set([
+  'png', 'jpg', 'jpeg', 'gif', 'webp', 'avif', 'svg', 'bmp', 'ico'
+]);
+
+function isImage(name){
   const ext = name.split('.').pop().toLowerCase();
-  return ext === 'png';
+  return IMAGE_EXTENSIONS.has(ext);
 }
 
 async function detectBranch(){
@@ -111,7 +115,7 @@ async function loadRepo(){
     const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents`);
     const items = await res.json();
     if(!Array.isArray(items)) return showEmpty();
-    images = items.filter(i=>isPng(i.name));
+    images = items.filter(i=>isImage(i.name));
     renderGallery();
     if(images.length>0) loadImage(0);
     else showEmpty();
