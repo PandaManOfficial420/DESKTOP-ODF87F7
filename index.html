@@ -33,10 +33,11 @@ body{
 
 /* HEADER */
 header{
-  padding:25px;
+  padding:18px 25px;
   display:flex;
   justify-content:space-between;
   align-items:center;
+  gap:12px;
 }
 
 .logo{
@@ -46,8 +47,35 @@ header{
 
 .header-links{
   display:flex;
-  gap:15px;
+  gap:12px;
   align-items:center;
+}
+
+/* NAV BAR */
+.nav-bar{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.nav-link{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 12px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:12px;
+  color:white;
+  text-decoration:none;
+  font-size:14px;
+  font-weight:600;
+  transition:all 0.18s ease;
+}
+
+.nav-link:hover{
+  background:rgba(255,255,255,.12);
+  transform:translateY(-2px);
 }
 
 .discord-link{
@@ -173,6 +201,10 @@ button:disabled{
 <header>
   <div class="logo">💻 DESKTOP-ODF87F7 Files</div>
   <div class="header-links">
+    <nav class="nav-bar" aria-label="Main navigation">
+      <a class="nav-link" href="music.html" title="Open music page">🎵 Music</a>
+      <a class="nav-link" href="index.html" title="Home">🏠 Home</a>
+    </nav>
     <a href="https://discord.gg/McrZ7aZZaY" class="discord-link" title="Join Discord" target="_blank" rel="noopener noreferrer">🎮 Join Discord</a>
   </div>
 </header>
@@ -262,7 +294,7 @@ async function loadRepo() {
 function renderFiles(items) {
   const content = document.getElementById("content");
 
-  const hidden = ["index.html", "manifest.json", "sw.js", "music.html"];
+  const hidden = ["index.html", "manifest.json", "sw.js"];
 
   const visible = items.filter(i =>
     !hidden.includes(i.name.toLowerCase())
