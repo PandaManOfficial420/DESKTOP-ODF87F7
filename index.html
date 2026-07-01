@@ -170,19 +170,29 @@ function renderFiles(items) {
     const card = document.createElement("div");
     card.className = "file";
 
+    const viewBtn = document.createElement("button");
+    viewBtn.textContent = "View 👁️";
+    viewBtn.onclick = () => viewFile(rawURL, item.path);
+
+    const downloadLink = document.createElement("a");
+    downloadLink.href = rawURL;
+    downloadLink.download = item.name;
+    const downloadBtn = document.createElement("button");
+    downloadBtn.textContent = "Download ⬇";
+    downloadLink.appendChild(downloadBtn);
+
+    const buttonsDiv = document.createElement("div");
+    buttonsDiv.className = "buttons";
+    buttonsDiv.appendChild(viewBtn);
+    buttonsDiv.appendChild(downloadLink);
+
     card.innerHTML = `
       <div class="file-icon">${getIcon(item.name, item.type)}</div>
       <div class="file-name">${item.name}</div>
       <div class="file-type">${item.type}</div>
-
-      <div class="buttons">
-        <button onclick="viewFile('${rawURL}', '${item.path}')">View 👁️</button>
-        <a href="${rawURL}" download>
-          <button>Download ⬇</button>
-        </a>
-      </div>
     `;
 
+    card.appendChild(buttonsDiv);
     content.appendChild(card);
   });
 }
