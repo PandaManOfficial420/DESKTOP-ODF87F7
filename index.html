@@ -4,38 +4,61 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>DESKTOP-ODF87F7 Files</title>
+<title>Home - DESKTOP-ODF87F7</title>
 
-<meta property="og:title" content="DESKTOP-ODF87F7 Files">
-<meta property="og:description" content="Browse and download files directly from GitHub repository.">
+<meta name="description" content="Home page for DESKTOP-ODF87F7 with quick links to files, music, images, and contact options.">
+<meta property="og:title" content="DESKTOP-ODF87F7 Home">
+<meta property="og:description" content="Explore files, music, images, and contact options from one polished home page.">
 <meta name="theme-color" content="#111827">
 
-<!-- Site icons -->
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="shortcut icon" href="favicon.svg">
 <link rel="apple-touch-icon" href="favicon.svg">
 <link rel="manifest" href="manifest.json">
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:"Segoe UI",sans-serif;
+:root{
+  color-scheme:dark;
+  --bg:#070b17;
+  --panel:rgba(255,255,255,.1);
+  --panel-strong:rgba(255,255,255,.16);
+  --stroke:rgba(255,255,255,.18);
+  --text:rgba(255,255,255,.96);
+  --muted:rgba(255,255,255,.72);
+  --accent:#38bdf8;
+  --accent-2:#a78bfa;
+  --accent-3:#f97316;
+  --shadow:0 24px 80px rgba(0,0,0,.35);
 }
 
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg)}
 body{
   min-height:100vh;
+  color:var(--text);
+  font-family:"Segoe UI",system-ui,-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
   background:
-    linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),
-    url("https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1920&auto=format&fit=crop");
-  background-size:cover;
-  background-position:center;
-  color:white;
+    radial-gradient(circle at 10% 15%, rgba(56,189,248,.28), transparent 30rem),
+    radial-gradient(circle at 86% 18%, rgba(167,139,250,.24), transparent 28rem),
+    radial-gradient(circle at 50% 92%, rgba(249,115,22,.16), transparent 28rem),
+    linear-gradient(135deg,#070b17 0%,#111827 48%,#1e1b4b 100%);
+  overflow-x:hidden;
 }
 
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+  background-size:54px 54px;
+  mask-image:linear-gradient(to bottom, rgba(0,0,0,.8), transparent 78%);
+}
 
-/* SITE NAV */
+button,a{ -webkit-tap-highlight-color:transparent; }
+
 .site-nav{
   position:sticky;
   top:0;
@@ -44,159 +67,111 @@ body{
   align-items:center;
   justify-content:space-between;
   gap:18px;
-  padding:14px 25px;
+  padding:14px clamp(16px,3vw,32px);
   background:rgba(17,24,39,.78);
   border-bottom:1px solid rgba(255,255,255,.16);
   backdrop-filter:blur(18px);
   box-shadow:0 10px 30px rgba(0,0,0,.18);
 }
-.site-brand{
-  color:white;
-  text-decoration:none;
-  font-size:18px;
-  font-weight:800;
-  letter-spacing:.2px;
-  white-space:nowrap;
-}
-.site-links{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  flex-wrap:wrap;
-  justify-content:flex-end;
-}
-.site-links a{
-  color:white;
-  text-decoration:none;
-  padding:8px 12px;
-  border:1px solid rgba(255,255,255,.16);
-  border-radius:999px;
-  background:rgba(255,255,255,.08);
-  transition:all .25s ease;
-}
-.site-links a:hover,
-.site-links a.active{
-  background:rgba(255,255,255,.22);
-  border-color:rgba(255,255,255,.35);
-  transform:translateY(-1px);
-}
-@media (max-width:640px){
-  .site-nav{align-items:flex-start;flex-direction:column;padding:12px 16px}
-  .site-links{justify-content:flex-start}
-  .site-links a{padding:7px 10px;font-size:14px}
-}
+.site-brand{color:white;text-decoration:none;font-size:clamp(16px,2vw,18px);font-weight:900;letter-spacing:.2px;white-space:nowrap}
+.site-links{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+.site-links a{color:white;text-decoration:none;padding:8px 12px;border:1px solid rgba(255,255,255,.16);border-radius:999px;background:rgba(255,255,255,.08);transition:all .25s ease}
+.site-links a:hover,.site-links a.active{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.35);transform:translateY(-1px)}
+.site-links a:focus-visible,.cta:focus-visible,button:focus-visible{outline:3px solid rgba(56,189,248,.7);outline-offset:3px}
 
-/* MAIN */
-.container{ padding:25px; }
+main{position:relative;z-index:1;width:min(1180px,100%);margin:0 auto;padding:clamp(28px,5vw,74px) clamp(16px,4vw,32px)}
+.hero{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(300px,.92fr);gap:clamp(24px,5vw,56px);align-items:center;min-height:calc(100vh - 96px)}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;width:max-content;padding:8px 12px;border:1px solid rgba(255,255,255,.18);border-radius:999px;background:rgba(255,255,255,.08);color:#dbeafe;font-size:14px;font-weight:800;margin-bottom:18px}
+h1{font-size:clamp(42px,8vw,86px);line-height:.95;letter-spacing:-.07em;max-width:780px}
+.lede{max-width:660px;margin:22px 0 0;color:var(--muted);font-size:clamp(17px,2vw,21px);line-height:1.65}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.cta{display:inline-flex;align-items:center;justify-content:center;gap:8px;color:white;text-decoration:none;border-radius:16px;padding:13px 17px;font-weight:900;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.1);box-shadow:0 12px 30px rgba(0,0,0,.18);transition:transform .2s ease,background .2s ease,border-color .2s ease}
+.cta.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#06111f;border-color:transparent}
+.cta:hover{transform:translateY(-2px);background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.3)}
+.cta.primary:hover{background:linear-gradient(135deg,#67e8f9,#c4b5fd)}
 
-.files-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:20px;
-}
+.hero-card{position:relative;padding:clamp(18px,3vw,28px);border:1px solid var(--stroke);border-radius:34px;background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.07));box-shadow:var(--shadow);backdrop-filter:blur(22px);overflow:hidden}
+.hero-card::before{content:"";position:absolute;inset:-35% -20% auto auto;width:260px;aspect-ratio:1;border-radius:999px;background:rgba(56,189,248,.25);filter:blur(20px)}
+.profile{position:relative;display:grid;gap:16px;text-align:center}
+.avatar{width:132px;aspect-ratio:1;margin:0 auto;border-radius:32px;object-fit:cover;border:1px solid rgba(255,255,255,.24);box-shadow:0 18px 42px rgba(0,0,0,.32)}
+.profile h2{font-size:clamp(24px,3vw,34px)}
+.profile p{color:var(--muted);line-height:1.6}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:8px}
+.stat{padding:14px 10px;border:1px solid rgba(255,255,255,.13);border-radius:18px;background:rgba(255,255,255,.07)}
+.stat strong{display:block;font-size:22px}.stat span{display:block;margin-top:3px;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.08em}
 
-.file{
-  background:rgba(255,255,255,.12);
-  backdrop-filter:blur(20px);
-  border:1px solid rgba(255,255,255,.2);
-  border-radius:25px;
-  padding:20px;
-}
+.section{padding:clamp(40px,7vw,84px) 0}.section-heading{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:20px}.section-heading h2{font-size:clamp(28px,5vw,46px);letter-spacing:-.04em}.section-heading p{max-width:560px;color:var(--muted);line-height:1.6}
+.quick-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.quick-card{display:block;color:white;text-decoration:none;padding:22px;border:1px solid var(--stroke);border-radius:26px;background:var(--panel);backdrop-filter:blur(18px);box-shadow:0 18px 50px rgba(0,0,0,.18);transition:transform .22s ease,border-color .22s ease,background .22s ease}.quick-card:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.34);background:var(--panel-strong)}.quick-card span{font-size:34px}.quick-card h3{font-size:22px;margin:14px 0 8px}.quick-card p{color:var(--muted);line-height:1.55}
 
-.file-icon{ font-size:40px; margin-bottom:10px; }
-.file-name{ font-size:16px; margin-bottom:6px; word-break:break-word; }
-.file-type{ opacity:.7; margin-bottom:15px; }
+.files-panel{border:1px solid var(--stroke);border-radius:30px;background:rgba(255,255,255,.08);backdrop-filter:blur(18px);box-shadow:var(--shadow);padding:clamp(16px,3vw,24px)}
+.files-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}.file{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);border-radius:22px;padding:18px}.file-icon{font-size:36px;margin-bottom:10px}.file-name{font-size:16px;font-weight:800;margin-bottom:6px;word-break:break-word}.file-type{opacity:.7;margin-bottom:14px}.buttons{display:flex;gap:10px;flex-wrap:wrap}button{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2);color:white;padding:8px 12px;border-radius:11px;cursor:pointer;transition:all .25s ease}button:hover:not(:disabled){background:rgba(255,255,255,.24);border-color:rgba(255,255,255,.38)}button:disabled{opacity:.5;cursor:not-allowed}.viewer{max-width:100%;margin:0 auto;padding:4px}.viewer h2,.viewer h3{text-align:center}.viewer img,.viewer video{max-width:100%;height:auto;border-radius:18px;margin:20px auto;display:block}.viewer audio{width:100%;max-width:600px;border-radius:15px;margin:20px auto;display:block}.back-btn{display:inline-block;margin-bottom:20px}
 
-.buttons{
-  display:flex;
-  gap:10px;
-}
-
-button{
-  background:rgba(255,255,255,.15);
-  border:1px solid rgba(255,255,255,.2);
-  color:white;
-  padding:8px 12px;
-  border-radius:10px;
-  cursor:pointer;
-  transition:all 0.3s ease;
-}
-
-button:hover:not(:disabled){
-  background:rgba(255,255,255,.25);
-  border-color:rgba(255,255,255,.4);
-}
-
-button:disabled{
-  opacity:0.5;
-  cursor:not-allowed;
-}
-
-/* VIEWER */
-.viewer{
-  max-width:1200px;
-  margin:0 auto;
-  padding:20px;
-}
-
-.viewer h2{
-  margin:15px 0 25px 0;
-  text-align:center;
-}
-
-.viewer img{
-  max-width:100%;
-  height:auto;
-  border-radius:15px;
-  margin:20px 0;
-  display:block;
-  margin-left:auto;
-  margin-right:auto;
-}
-
-.viewer video{
-  max-width:100%;
-  height:auto;
-  border-radius:15px;
-  margin:20px auto;
-  background:rgba(0,0,0,.4);
-  padding:10px;
-  display:block;
-}
-
-.viewer audio{
-  width:100%;
-  max-width:500px;
-  height:auto;
-  border-radius:15px;
-  margin:20px auto;
-  background:rgba(0,0,0,.4);
-  padding:15px;
-  display:block;
-}
-
-.back-btn{
-  display:inline-block;
-  margin-bottom:20px;
-}
+@media (max-width:860px){.hero{grid-template-columns:1fr;min-height:auto}.quick-grid{grid-template-columns:1fr}.section-heading{display:block}.section-heading p{margin-top:10px}.site-nav{align-items:flex-start;flex-direction:column}.site-links{justify-content:flex-start}.site-links a{font-size:14px;padding:7px 10px}.stats{grid-template-columns:1fr}}
 </style>
 </head>
-
 <body>
-
 <nav class="site-nav" aria-label="Main navigation">
   <a class="site-brand" href="index.html">💻 DESKTOP-ODF87F7</a>
   <div class="site-links">
-    <a class="active" href="index.html" aria-current="page">📁 Files</a>
+    <a class="active" href="index.html" aria-current="page">🏠 Home</a>
+    <a href="#files">📁 Files</a>
     <a href="music.html">🎵 Music</a>
     <a href="png.html">🖼️ Image Pager</a>
     <a href="contact.html">✉️ Contact</a>
   </div>
 </nav>
 
-<div class="container">
-  <div id="content" class="files-grid">Loading files...</div>
-</div>
+<main>
+  <section class="hero" aria-labelledby="home-title">
+    <div>
+      <div class="eyebrow">✨ Personal media hub</div>
+      <h1 id="home-title">Everything in one clean home base.</h1>
+      <p class="lede">Welcome to DESKTOP-ODF87F7: a polished landing page for browsing shared files, playing tracks, viewing images, and getting in touch fast.</p>
+      <div class="hero-actions">
+        <a class="cta primary" href="#files">Browse files 📁</a>
+        <a class="cta" href="music.html">Open music player 🎵</a>
+        <a class="cta" href="contact.html">Contact me ✉️</a>
+      </div>
+    </div>
+
+    <aside class="hero-card" aria-label="Site highlights">
+      <div class="profile">
+        <img class="avatar" src="pfp.png" alt="DESKTOP-ODF87F7 profile image">
+        <div>
+          <h2>PandaManOfficial420</h2>
+          <p>A simple, stylish place to collect downloads, media previews, and quick links without digging through folders.</p>
+        </div>
+        <div class="stats" aria-label="Homepage features">
+          <div class="stat"><strong>3</strong><span>Sections</span></div>
+          <div class="stat"><strong>24/7</strong><span>Access</span></div>
+          <div class="stat"><strong>Fast</strong><span>Static site</span></div>
+        </div>
+      </div>
+    </aside>
+  </section>
+
+  <section class="section" aria-labelledby="quick-title">
+    <div class="section-heading">
+      <h2 id="quick-title">Quick links</h2>
+      <p>Jump straight to the most useful areas of the site.</p>
+    </div>
+    <div class="quick-grid">
+      <a class="quick-card" href="music.html"><span aria-hidden="true">🎵</span><h3>Music player</h3><p>Play the audio files in a focused player with playlist controls.</p></a>
+      <a class="quick-card" href="png.html"><span aria-hidden="true">🖼️</span><h3>Image pager</h3><p>Flip through images in a dedicated visual browsing experience.</p></a>
+      <a class="quick-card" href="contact.html"><span aria-hidden="true">✉️</span><h3>Contact</h3><p>Send a quick message using the contact form and mail app flow.</p></a>
+    </div>
+  </section>
+
+  <section class="section" id="files" aria-labelledby="files-title">
+    <div class="section-heading">
+      <h2 id="files-title">Featured files</h2>
+      <p>Preview images, video, and audio directly, or download files from the repository.</p>
+    </div>
+    <div class="files-panel">
+      <div id="content" class="files-grid">Loading files...</div>
+    </div>
+  </section>
+</main>
 
 <script>
 const OWNER = "PandaManOfficial420";
@@ -205,45 +180,17 @@ const REPO = "DESKTOP-ODF87F7";
 let currentItems = [];
 let BRANCH = "main";
 
-/* ICONS */
 function getIcon(name, type) {
   if (type === "dir") return "📁";
-
   const ext = name.split(".").pop().toLowerCase();
-
-  return {
-    png:"🖼️", jpg:"🖼️", jpeg:"🖼️", gif:"🖼️", webp:"🖼️",
-    mp4:"🎬", mp3:"🎵", ogg:"🎵",
-    zip:"📦", html:"🌐", css:"🎨", js:"⚡", json:"🧩",
-    md:"📘", txt:"📄"
-  }[ext] || "📄";
+  return {png:"🖼️",jpg:"🖼️",jpeg:"🖼️",gif:"🖼️",webp:"🖼️",mp4:"🎬",mp3:"🎵",ogg:"🎵",zip:"📦",html:"🌐",css:"🎨",js:"⚡",json:"🧩",md:"📘",txt:"📄"}[ext] || "📄";
 }
 
-/* CHECK IF VIEWABLE */
-function isViewable(name) {
-  const ext = name.split(".").pop().toLowerCase();
-  return ["png","jpg","jpeg","gif","webp","mp4","mp3","ogg"].includes(ext);
-}
+function isViewable(name) { return ["png","jpg","jpeg","gif","webp","mp4","mp3","ogg"].includes(name.split(".").pop().toLowerCase()); }
+function isImage(name) { return ["png","jpg","jpeg","gif","webp"].includes(name.split(".").pop().toLowerCase()); }
+function isVideo(name) { return ["mp4"].includes(name.split(".").pop().toLowerCase()); }
+function isAudio(name) { return ["mp3","ogg"].includes(name.split(".").pop().toLowerCase()); }
 
-/* CHECK IF IMAGE */
-function isImage(name) {
-  const ext = name.split(".").pop().toLowerCase();
-  return ["png","jpg","jpeg","gif","webp"].includes(ext);
-}
-
-/* CHECK IF VIDEO */
-function isVideo(name) {
-  const ext = name.split(".").pop().toLowerCase();
-  return ["mp4"].includes(ext);
-}
-
-/* CHECK IF AUDIO */
-function isAudio(name) {
-  const ext = name.split(".").pop().toLowerCase();
-  return ["mp3","ogg"].includes(ext);
-}
-
-/* BRANCH DETECT */
 async function detectBranch() {
   try {
     const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}`);
@@ -254,52 +201,36 @@ async function detectBranch() {
   }
 }
 
-/* LOAD FILES */
 async function loadRepo() {
   const content = document.getElementById("content");
-
   try {
     const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents`);
     const items = await res.json();
-
     if (!Array.isArray(items)) {
       content.innerHTML = "⚠️ GitHub API error (rate limit or repo not found)";
       return;
     }
-
     currentItems = items;
     renderFiles(items);
-
   } catch {
     content.innerHTML = "⚠️ Failed to load files.";
   }
 }
 
-/* RENDER */
 function renderFiles(items) {
   const content = document.getElementById("content");
-
   const hidden = ["index.html", "manifest.json", "sw.js", "music.html", "png.html", "contact.html", "favicon.svg"];
-
-  const visible = items.filter(i =>
-    !hidden.includes(i.name.toLowerCase())
-  );
-
+  const visible = items.filter((item) => !hidden.includes(item.name.toLowerCase()));
   content.className = "files-grid";
   content.innerHTML = "";
 
-  visible.forEach(item => {
-
-    const rawURL =
-      `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${item.path}`;
-
+  visible.forEach((item) => {
+    const rawURL = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${item.path}`;
     const card = document.createElement("div");
     card.className = "file";
 
     const viewBtn = document.createElement("button");
     viewBtn.textContent = "View 👁️";
-    
-    /* Enable view button for images, videos, and audio */
     if (isViewable(item.name)) {
       viewBtn.onclick = () => viewFile(rawURL, item.path, item.name);
     } else {
@@ -319,27 +250,18 @@ function renderFiles(items) {
     buttonsDiv.appendChild(viewBtn);
     buttonsDiv.appendChild(downloadLink);
 
-    card.innerHTML = `
-      <div class="file-icon">${getIcon(item.name, item.type)}</div>
-      <div class="file-name">${item.name}</div>
-      <div class="file-type">${item.type}</div>
-    `;
-
+    card.innerHTML = `<div class="file-icon">${getIcon(item.name, item.type)}</div><div class="file-name">${item.name}</div><div class="file-type">${item.type}</div>`;
     card.appendChild(buttonsDiv);
     content.appendChild(card);
   });
 }
 
-/* VIEW FILE */
 async function viewFile(url, path, name) {
   const content = document.getElementById("content");
-
   try {
     content.className = "viewer";
-
     let mediaHTML = "";
     let title = "📄";
-    
     if (isImage(path)) {
       title = "🖼️ Image";
       mediaHTML = `<img src="${url}" alt="${path}">`;
@@ -348,25 +270,16 @@ async function viewFile(url, path, name) {
       mediaHTML = `<video controls width="100%" autoplay><source src="${url}" type="video/mp4">Your browser does not support the video tag.</video>`;
     } else if (isAudio(path)) {
       title = "🎵 Music";
-      mediaHTML = `<audio controls autoplay style="width:100%; max-width:600px;"><source src="${url}" type="audio/mpeg">Your browser does not support the audio element.</audio>`;
+      mediaHTML = `<audio controls autoplay><source src="${url}" type="audio/mpeg">Your browser does not support the audio element.</audio>`;
     }
-
-    content.innerHTML = `
-      <button class="back-btn" onclick="renderFiles(currentItems)">⬅ Back</button>
-      <h2>${title}</h2>
-      <h3 style="text-align:center; opacity:0.8; margin-bottom:20px;">${name}</h3>
-      ${mediaHTML}
-    `;
-
+    content.innerHTML = `<button class="back-btn" onclick="renderFiles(currentItems)">⬅ Back</button><h2>${title}</h2><h3 style="opacity:.8;margin:10px 0 20px;">${name}</h3>${mediaHTML}`;
   } catch {
     content.innerHTML = "⚠️ Unable to view file.";
   }
 }
 
-/* START */
 detectBranch().then(loadRepo);
 setInterval(loadRepo, 30000);
 </script>
-
 </body>
 </html>
