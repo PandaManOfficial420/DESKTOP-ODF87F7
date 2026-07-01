@@ -74,6 +74,12 @@ button{
   padding:8px 12px;
   border-radius:10px;
   cursor:pointer;
+  transition:all 0.3s ease;
+}
+
+button:hover:not(:disabled){
+  background:rgba(255,255,255,.25);
+  border-color:rgba(255,255,255,.4);
 }
 
 button:disabled{
@@ -85,14 +91,12 @@ button:disabled{
 .viewer{
   max-width:1200px;
   margin:0 auto;
+  padding:20px;
 }
 
-.viewer pre{
-  white-space:pre-wrap;
-  background:rgba(0,0,0,.4);
-  padding:20px;
-  border-radius:15px;
-  overflow:auto;
+.viewer h2{
+  margin:15px 0 25px 0;
+  text-align:center;
 }
 
 .viewer img{
@@ -100,16 +104,35 @@ button:disabled{
   height:auto;
   border-radius:15px;
   margin:20px 0;
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
 }
 
-.viewer video,
-.viewer audio{
+.viewer video{
   max-width:100%;
   height:auto;
   border-radius:15px;
-  margin:20px 0;
+  margin:20px auto;
   background:rgba(0,0,0,.4);
   padding:10px;
+  display:block;
+}
+
+.viewer audio{
+  width:100%;
+  max-width:500px;
+  height:auto;
+  border-radius:15px;
+  margin:20px auto;
+  background:rgba(0,0,0,.4);
+  padding:15px;
+  display:block;
+}
+
+.back-btn{
+  display:inline-block;
+  margin-bottom:20px;
 }
 </style>
 </head>
@@ -225,9 +248,9 @@ function renderFiles(items) {
     const viewBtn = document.createElement("button");
     viewBtn.textContent = "View 👁️";
     
-    // Enable view button for images, videos, and audio
+    /* Enable view button for images, videos, and audio */
     if (isViewable(item.name)) {
-      viewBtn.onclick = () => viewFile(rawURL, item.path);
+      viewBtn.onclick = () => viewFile(rawURL, item.path, item.name);
     } else {
       viewBtn.disabled = true;
       viewBtn.title = "View only available for images, videos, and audio";
@@ -257,25 +280,30 @@ function renderFiles(items) {
 }
 
 /* VIEW FILE */
-async function viewFile(url, path) {
+async function viewFile(url, path, name) {
   const content = document.getElementById("content");
 
   try {
     content.className = "viewer";
 
     let mediaHTML = "";
+    let title = "📄";
     
     if (isImage(path)) {
+      title = "🖼️ Image";
       mediaHTML = `<img src="${url}" alt="${path}">`;
     } else if (isVideo(path)) {
-      mediaHTML = `<video controls width="100%"><source src="${url}" type="video/mp4">Your browser does not support the video tag.</video>`;
+      title = "🎬 Video";
+      mediaHTML = `<video controls width="100%" autoplay><source src="${url}" type="video/mp4">Your browser does not support the video tag.</video>`;
     } else if (isAudio(path)) {
-      mediaHTML = `<audio controls style="width:100%;"><source src="${url}" type="audio/mpeg">Your browser does not support the audio element.</audio>`;
+      title = "🎵 Music";
+      mediaHTML = `<audio controls autoplay style="width:100%; max-width:600px;"><source src="${url}" type="audio/mpeg">Your browser does not support the audio element.</audio>`;
     }
 
     content.innerHTML = `
-      <button onclick="renderFiles(currentItems)">⬅ Back</button>
-      <h2 style="margin:15px 0;">📄 ${path}</h2>
+      <button class="back-btn" onclick="renderFiles(currentItems)">⬅ Back</button>
+      <h2>${title}</h2>
+      <h3 style="text-align:center; opacity:0.8; margin-bottom:20px;">${name}</h3>
       ${mediaHTML}
     `;
 
