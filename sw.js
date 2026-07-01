@@ -1,11 +1,12 @@
-const CACHE = "desktop-files-v1";
+const CACHE = "desktop-files-v2";
 
 const ASSETS = [
   "./",
   "./index.html",
   "./manifest.json",
-  "./icon-192.png",
-  "./icon-512.png"
+  "./favicon.svg",
+  "./music.html",
+  "./png.html"
 ];
 
 self.addEventListener("install", event => {
