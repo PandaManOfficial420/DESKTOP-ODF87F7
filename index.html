@@ -31,75 +31,6 @@ body{
   color:white;
 }
 
-/* HEADER */
-header{
-  padding:18px 25px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-}
-
-.logo{
-  font-size:28px;
-  font-weight:700;
-}
-
-.header-links{
-  display:flex;
-  gap:12px;
-  align-items:center;
-}
-
-/* NAV BAR */
-.nav-bar{
-  display:flex;
-  gap:10px;
-  align-items:center;
-}
-
-.nav-link{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:8px 12px;
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:12px;
-  color:white;
-  text-decoration:none;
-  font-size:14px;
-  font-weight:600;
-  transition:all 0.18s ease;
-}
-
-.nav-link:hover{
-  background:rgba(255,255,255,.12);
-  transform:translateY(-2px);
-}
-
-.discord-link{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  padding:10px 16px;
-  background:rgba(88,101,242,.2);
-  border:1px solid rgba(88,101,242,.4);
-  border-radius:20px;
-  color:white;
-  text-decoration:none;
-  font-size:14px;
-  font-weight:600;
-  transition:all 0.3s ease;
-}
-
-.discord-link:hover{
-  background:rgba(88,101,242,.35);
-  border-color:rgba(88,101,242,.6);
-  transform:scale(1.05);
-}
-
 /* MAIN */
 .container{ padding:25px; }
 
@@ -193,27 +124,10 @@ button:disabled{
   display:inline-block;
   margin-bottom:20px;
 }
-
-/* Hide the Home button */
-.nav-link[href="index.html"], .nav-link[title="Home"] {
-  display: none !important;
-}
 </style>
 </head>
 
 <body>
-
-<header>
-  <div class="logo">💻 DESKTOP-ODF87F7 Files</div>
-  <div class="header-links">
-    <nav class="nav-bar" aria-label="Main navigation">
-      <a class="nav-link" href="music.html" title="Open music page">🎵 Music</a>
-      <a class="nav-link" href="index.html" title="Home">🏠 Home</a>
-      <a class="nav-link" href="png.html" title="Home">🖼️ PNGs</a>
-    </nav>
-    <a href="https://discord.gg/McrZ7aZZaY" class="discord-link" title="Join Discord" target="_blank" rel="noopener noreferrer">🎮 Join Discord</a>
-  </div>
-</header>
 
 <div class="container">
   <div id="content" class="files-grid">Loading files...</div>
