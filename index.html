@@ -101,6 +101,16 @@ button:disabled{
   border-radius:15px;
   margin:20px 0;
 }
+
+.viewer video,
+.viewer audio{
+  max-width:100%;
+  height:auto;
+  border-radius:15px;
+  margin:20px 0;
+  background:rgba(0,0,0,.4);
+  padding:10px;
+}
 </style>
 </head>
 
@@ -129,15 +139,34 @@ function getIcon(name, type) {
 
   return {
     png:"🖼️", jpg:"🖼️", jpeg:"🖼️", gif:"🖼️", webp:"🖼️",
+    mp4:"🎬", mp3:"🎵", ogg:"🎵",
     zip:"📦", html:"🌐", css:"🎨", js:"⚡", json:"🧩",
     md:"📘", txt:"📄"
   }[ext] || "📄";
+}
+
+/* CHECK IF VIEWABLE */
+function isViewable(name) {
+  const ext = name.split(".").pop().toLowerCase();
+  return ["png","jpg","jpeg","gif","webp","mp4","mp3","ogg"].includes(ext);
 }
 
 /* CHECK IF IMAGE */
 function isImage(name) {
   const ext = name.split(".").pop().toLowerCase();
   return ["png","jpg","jpeg","gif","webp"].includes(ext);
+}
+
+/* CHECK IF VIDEO */
+function isVideo(name) {
+  const ext = name.split(".").pop().toLowerCase();
+  return ["mp4"].includes(ext);
+}
+
+/* CHECK IF AUDIO */
+function isAudio(name) {
+  const ext = name.split(".").pop().toLowerCase();
+  return ["mp3","ogg"].includes(ext);
 }
 
 /* BRANCH DETECT */
@@ -196,12 +225,12 @@ function renderFiles(items) {
     const viewBtn = document.createElement("button");
     viewBtn.textContent = "View 👁️";
     
-    // Only enable view button for images
-    if (isImage(item.name)) {
+    // Enable view button for images, videos, and audio
+    if (isViewable(item.name)) {
       viewBtn.onclick = () => viewFile(rawURL, item.path);
     } else {
       viewBtn.disabled = true;
-      viewBtn.title = "View only available for images";
+      viewBtn.title = "View only available for images, videos, and audio";
     }
 
     const downloadLink = document.createElement("a");
@@ -234,14 +263,24 @@ async function viewFile(url, path) {
   try {
     content.className = "viewer";
 
+    let mediaHTML = "";
+    
+    if (isImage(path)) {
+      mediaHTML = `<img src="${url}" alt="${path}">`;
+    } else if (isVideo(path)) {
+      mediaHTML = `<video controls width="100%"><source src="${url}" type="video/mp4">Your browser does not support the video tag.</video>`;
+    } else if (isAudio(path)) {
+      mediaHTML = `<audio controls style="width:100%;"><source src="${url}" type="audio/mpeg">Your browser does not support the audio element.</audio>`;
+    }
+
     content.innerHTML = `
       <button onclick="renderFiles(currentItems)">⬅ Back</button>
-      <h2 style="margin:15px 0;">🖼️ ${path}</h2>
-      <img src="${url}" alt="${path}">
+      <h2 style="margin:15px 0;">📄 ${path}</h2>
+      ${mediaHTML}
     `;
 
   } catch {
-    content.innerHTML = "⚠️ Unable to view image.";
+    content.innerHTML = "⚠️ Unable to view file.";
   }
 }
 
