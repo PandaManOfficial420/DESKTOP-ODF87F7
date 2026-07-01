@@ -13,6 +13,10 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:"Segoe UI",sans-serif}
 body{min-height:100vh;background:linear-gradient(135deg,#0f172a 0%,#071029 100%);color:white;display:flex;flex-direction:column}
+.site-nav{position:sticky;top:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:16px clamp(16px,4vw,34px);background:linear-gradient(135deg,rgba(255,255,255,.22),rgba(255,255,255,.05)),radial-gradient(circle at top left,rgba(59,130,246,.45),transparent 35%),radial-gradient(circle at top right,rgba(236,72,153,.38),transparent 36%),rgba(15,23,42,.78);border-bottom:1px solid rgba(255,255,255,.22);backdrop-filter:blur(22px) saturate(160%);box-shadow:0 18px 55px rgba(0,0,0,.35);flex-shrink:0}
+.site-brand{display:flex;align-items:center;gap:12px;color:white;text-decoration:none;min-width:0}.brand-orb{display:grid;place-items:center;width:46px;height:46px;border-radius:16px;background:linear-gradient(135deg,#60a5fa,#a78bfa,#f472b6);box-shadow:0 0 30px rgba(96,165,250,.55);animation:floatGlow 4s ease-in-out infinite}.brand-copy{display:flex;flex-direction:column;line-height:1.05}.brand-title{font-size:18px;font-weight:900;letter-spacing:.3px;white-space:nowrap}.brand-subtitle{margin-top:5px;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.62)}
+.site-links{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}.site-links a{position:relative;overflow:hidden;color:white;text-decoration:none;padding:10px 14px;border:1px solid rgba(255,255,255,.18);border-radius:999px;background:rgba(255,255,255,.09);box-shadow:inset 0 1px 0 rgba(255,255,255,.2);transition:transform .25s ease,background .25s ease,border-color .25s ease,box-shadow .25s ease}.site-links a::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent,rgba(255,255,255,.28),transparent);transform:translateX(-120%);transition:transform .5s ease}.site-links a:hover::before,.site-links a.active::before{transform:translateX(120%)}.site-links a:hover,.site-links a.active{background:linear-gradient(135deg,rgba(96,165,250,.32),rgba(244,114,182,.28));border-color:rgba(255,255,255,.42);box-shadow:0 10px 28px rgba(59,130,246,.22);transform:translateY(-2px)}
+.site-badge{display:flex;align-items:center;gap:8px;color:white;padding:9px 12px;border:1px solid rgba(255,255,255,.14);border-radius:999px;background:rgba(0,0,0,.18);font-size:13px;font-weight:700;white-space:nowrap}.site-badge::before{content:"";width:9px;height:9px;border-radius:999px;background:#22c55e;box-shadow:0 0 14px #22c55e}@keyframes floatGlow{0%,100%{transform:translateY(0);filter:hue-rotate(0deg)}50%{transform:translateY(-2px);filter:hue-rotate(18deg)}}
 header{padding:20px;text-align:center;border-bottom:2px solid rgba(255,255,255,.04);background:rgba(0,0,0,.25);position:relative}
 .header-title{font-size:24px;font-weight:700}
 .back-btn-header{position:absolute;left:16px;top:16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:white;padding:8px 12px;border-radius:8px;cursor:pointer}
@@ -30,15 +34,31 @@ header{padding:20px;text-align:center;border-bottom:2px solid rgba(255,255,255,.
 .thumb.active{outline:3px solid rgba(59,130,246,.25)}
 .empty{opacity:.6;text-align:center;padding:20px}
 @media (max-width:900px){.container{flex-direction:column}.gallery-section{width:100%;flex:0 0 auto;order:2}.viewer-section{order:1}.image-frame{height:50vh}}
+@media (max-width:760px){.site-nav{align-items:flex-start;flex-direction:column}.site-links{justify-content:flex-start}.brand-subtitle{display:none}.site-badge{display:none}}
+@media (max-width:420px){.site-links a{padding:8px 10px;font-size:14px}.brand-title{font-size:16px}.brand-orb{width:40px;height:40px}}
 </style>
 </head>
 <body>
+
+<nav class="site-nav" aria-label="Main navigation">
+  <a class="site-brand" href="index.html">
+    <span class="brand-orb" aria-hidden="true">💻</span>
+    <span class="brand-copy">
+      <span class="brand-title">DESKTOP-ODF87F7</span>
+      <span class="brand-subtitle">File Command Center</span>
+    </span>
+  </a>
+  <div class="site-links">
+    <a href="index.html">📁 Files</a>
+    <a href="music.html">🎵 Music</a>
+    <a class="active" aria-current="page" href="png.html">🖼️ PNG Pager</a>
+  </div>
+  <div class="site-badge" aria-label="Repository status">Live Repo</div>
+</nav>
+
 <header>
   <button class="back-btn-header" onclick="goBack()">⬅ Back</button>
   <div class="header-title">🖼️ PNG Pager</div>
-  <div style="position:absolute; right:16px; top:16px;">
-    <a class="nav-link" href="music.html" title="Open music page" style="text-decoration:none; color:white; background:rgba(255,255,255,.04); padding:6px 10px; border-radius:8px; border:1px solid rgba(255,255,255,.06);">🎵 Music</a>
-  </div>
 </header>
 
 <div class="container">
