@@ -76,13 +76,30 @@ button{
   cursor:pointer;
 }
 
+button:disabled{
+  opacity:0.5;
+  cursor:not-allowed;
+}
+
 /* VIEWER */
+.viewer{
+  max-width:1200px;
+  margin:0 auto;
+}
+
 .viewer pre{
   white-space:pre-wrap;
   background:rgba(0,0,0,.4);
   padding:20px;
   border-radius:15px;
   overflow:auto;
+}
+
+.viewer img{
+  max-width:100%;
+  height:auto;
+  border-radius:15px;
+  margin:20px 0;
 }
 </style>
 </head>
@@ -115,6 +132,12 @@ function getIcon(name, type) {
     zip:"📦", html:"🌐", css:"🎨", js:"⚡", json:"🧩",
     md:"📘", txt:"📄"
   }[ext] || "📄";
+}
+
+/* CHECK IF IMAGE */
+function isImage(name) {
+  const ext = name.split(".").pop().toLowerCase();
+  return ["png","jpg","jpeg","gif","webp"].includes(ext);
 }
 
 /* BRANCH DETECT */
@@ -172,7 +195,14 @@ function renderFiles(items) {
 
     const viewBtn = document.createElement("button");
     viewBtn.textContent = "View 👁️";
-    viewBtn.onclick = () => viewFile(rawURL, item.path);
+    
+    // Only enable view button for images
+    if (isImage(item.name)) {
+      viewBtn.onclick = () => viewFile(rawURL, item.path);
+    } else {
+      viewBtn.disabled = true;
+      viewBtn.title = "View only available for images";
+    }
 
     const downloadLink = document.createElement("a");
     downloadLink.href = rawURL;
@@ -202,24 +232,16 @@ async function viewFile(url, path) {
   const content = document.getElementById("content");
 
   try {
-    const res = await fetch(url);
-    const text = await res.text();
-
-    const safe = text
-      .replace(/&/g,"&amp;")
-      .replace(/</g,"&lt;")
-      .replace(/>/g,"&gt;");
-
     content.className = "viewer";
 
     content.innerHTML = `
       <button onclick="renderFiles(currentItems)">⬅ Back</button>
-      <h2 style="margin:15px 0;">📄 ${path}</h2>
-      <pre>${safe}</pre>
+      <h2 style="margin:15px 0;">🖼️ ${path}</h2>
+      <img src="${url}" alt="${path}">
     `;
 
   } catch {
-    content.innerHTML = "⚠️ Unable to view file.";
+    content.innerHTML = "⚠️ Unable to view image.";
   }
 }
 
