@@ -36,6 +36,9 @@ header{padding:20px;text-align:center;border-bottom:2px solid rgba(255,255,255,.
 <header>
   <button class="back-btn-header" onclick="goBack()">⬅ Back</button>
   <div class="header-title">🖼️ PNG Pager</div>
+  <div style="position:absolute; right:16px; top:16px;">
+    <a class="nav-link" href="music.html" title="Open music page" style="text-decoration:none; color:white; background:rgba(255,255,255,.04); padding:6px 10px; border-radius:8px; border:1px solid rgba(255,255,255,.06);">🎵 Music</a>
+  </div>
 </header>
 
 <div class="container">
@@ -105,7 +108,7 @@ function renderGallery(){
     thumb.className='thumb';
     thumb.src = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${file.path}`;
     thumb.alt = file.name;
-    thumb.onclick = ()=>{stopSlideshow();loadImage(idx);}
+    thumb.onclick = ()=>{stopSlideshow();loadImage(idx);} 
     if(idx===currentIndex) thumb.classList.add('active');
     g.appendChild(thumb);
   });
